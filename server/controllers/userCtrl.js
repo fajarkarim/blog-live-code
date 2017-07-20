@@ -3,7 +3,6 @@ var bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 var User = require('../models/user')
 
-require('dotenv').config()
 var SECRET = process.env.SECRET
 
 var saltRounds = 10

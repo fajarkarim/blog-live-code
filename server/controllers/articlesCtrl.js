@@ -42,12 +42,20 @@ var update = function (req, res) {
       res.status(500).send(err)
     } else {
       article.title = req.body.title || article.title,
-      article.content = req.body.content || 
+      article.content = req.body.content || article.content,
+      article.category = req.body.category || article.category
+
+      article.save((err, created) => {
+        err ? res.status(500).send(err) : res.send(created)
+      })
     }
   })
 }
 
 var remove = function (req, res) {
+  Article.findByIdAndRemove(req.params.id, (err, article) => {
+    err ? res.status(500).send(err) : res.send(article)
+  })
 
 }
 
@@ -55,6 +63,8 @@ module.exports = {
   getAll,
   getOne,
   create,
+  update,
+  remove,
   getByAuthor,
   getByCategory
 }

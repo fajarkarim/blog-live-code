@@ -6,11 +6,11 @@ var cors = require('cors')
 var mongoose = require('mongoose')
 var index = require('./routes/index');
 var users = require('./routes/users');
-var articles = require('./routes/articles');
+// var articles = require('./routes/articles');
 
 var url = "mongodb://localhost/fajar-blog-live"
 mongoose.connect(url, err => {
-  err ? console.log('cant connect database') : console.log('connected');;
+  err ? console.log('cant connect database') : console.log('database connected');;
 })
 
 var app = express();

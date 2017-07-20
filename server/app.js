@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
 var index = require('./routes/index');
 var users = require('./routes/users');
 require('dotenv').config()
-// var articles = require('./routes/articles');
+var articles = require('./routes/articles');
 
 var url = "mongodb://localhost/fajar-blog-live"
 mongoose.connect(url, err => {
@@ -23,7 +23,7 @@ app.use(cors())
 
 app.use('/', index);
 app.use('/api/users', users);
-// app.use('/api/articles', articles)
+app.use('/api/articles', articles)
 
 
 module.exports = app;

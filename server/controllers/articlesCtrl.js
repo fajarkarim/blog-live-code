@@ -56,7 +56,6 @@ var remove = function (req, res) {
   Article.findByIdAndRemove(req.params.id, (err, article) => {
     err ? res.status(500).send(err) : res.send(article)
   })
-
 }
 
 module.exports = {

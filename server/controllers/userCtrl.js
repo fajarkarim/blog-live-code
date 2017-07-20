@@ -2,8 +2,9 @@
 var bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 var User = require('../models/user')
+require('dotenv').config()
 
-var SECRET = process.env.SECRET
+var SECRET = 'akubukansiapa2'
 
 var saltRounds = 10
 
@@ -26,17 +27,17 @@ var register = function (req, res) {
 }
 
 var login = function (req, res) {
-  console.log(`secret nya ${SECRET}`);
+  let info = {}
   User.findOne({ username: req.body.username}, (err, user) => {
     if (user) {
-      console.log(`usernya ${user}`);
       let pass = bcrypt.compareSync(req.body.password, user.password)
-      console.log(`pass dihash ${pass}`);
       if (pass) {
         let token = jwt.sign({
           username: user.username
         }, SECRET)
-        res.send(token)
+        info.token = token
+        info.username = user.username
+        res.send(info)
       } else {
         res.send('your password is wrong')
       }
@@ -44,11 +45,12 @@ var login = function (req, res) {
       res.send('user not found')
     }
   })
-
 }
 
-var getAll = function () {
-
+var getAll = function (req, res) {
+  User.find({}, (err, users) => {
+    err ? res.status(500).send(err) : res.send(users)
+  })
 }
 
 var getOne = function () {
@@ -63,11 +65,15 @@ var update = function () {
 
 }
 
-var remove = function () {
-
+var remove = function (req, res) {
+  User.findByIdAndRemove(req.params.id, (err, user) => {
+    err ? res.status(500).send(err) : res.send(user)
+  })
 }
 
 module.exports = {
   register,
-  login
+  login,
+  getAll,
+  remove
 }

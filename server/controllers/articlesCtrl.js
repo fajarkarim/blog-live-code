@@ -13,11 +13,15 @@ var getOne = function (req, res) {
 }
 
 var getByAuthor = function (req, res) {
-
+  Article.find({author: new RegExp(req.query.search, 'i')}, (err, articles) => {
+    err ? res.status(500).send(err) : res.send(articles)
+  })
 }
 
 var getByCategory = function (req, res) {
-
+  Article.find({category: new ReqExp(req.query.search, 'i')}, (err, articles) => {
+    err ? res.status(500).send(err) : res.send(articles)
+  })
 }
 
 var create = function (req, res) {
@@ -33,7 +37,14 @@ var create = function (req, res) {
 }
 
 var update = function (req, res) {
-
+  Article.findById(req.params.id, (err, article) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      article.title = req.body.title || article.title,
+      article.content = req.body.content || 
+    }
+  })
 }
 
 var remove = function (req, res) {
@@ -43,5 +54,7 @@ var remove = function (req, res) {
 module.exports = {
   getAll,
   getOne,
-  create
+  create,
+  getByAuthor,
+  getByCategory
 }

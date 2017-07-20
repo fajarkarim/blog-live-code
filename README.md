@@ -12,8 +12,8 @@ Method | URL |Desctiption
 ------------ | ------------- | -------------
 GET | ```/api/articles```| Get all articles
 GET | ```/api/articles/:id```| Get One article
-GET | ```/api/articles/category/:author```| Get all articles by author
-GET | ```/api/articles/category/:category```| Get all articles by category
+GET | ```/api/articles/author```| Get all articles by author
+GET | ```/api/articles/category/```| Get all articles by category
 POST | ```/api/articles```| create articles
 PUT | ```/api/articles/:id```| edit articles
 DELETE | ```/api/articles/:id```| delete articles

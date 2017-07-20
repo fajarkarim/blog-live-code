@@ -5,7 +5,9 @@ var auth = require('../helpers/auth')
 
 /* GET users listing. */
 router.get('/', articlesCtrl.getAll)
-router.post('/', articlesCtrl.create)
+router.get('/author', articlesCtrl.getByAuthor)
+router.get('/category', articlesCtrl.getByCategory)
 router.get('/:id', articlesCtrl.getOne)
+router.post('/', articlesCtrl.create)
 
 module.exports = router;

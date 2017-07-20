@@ -2,6 +2,10 @@
 var bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 var User = require('../models/user')
+
+require('dotenv').config()
+var SECRET = process.env.SECRET
+
 var saltRounds = 10
 
 var register = function (req, res) {
@@ -23,6 +27,7 @@ var register = function (req, res) {
 }
 
 var login = function (req, res) {
+  console.log(`secret nya ${SECRET}`);
   User.findOne({ username: req.body.username}, (err, user) => {
     if (user) {
       console.log(`usernya ${user}`);
@@ -31,7 +36,7 @@ var login = function (req, res) {
       if (pass) {
         let token = jwt.sign({
           username: user.username
-        })
+        }, SECRET)
         res.send(token)
       } else {
         res.send('your password is wrong')
